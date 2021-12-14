@@ -69,12 +69,14 @@ span.psw {
 <body>
 
 <h2>Login Form</h2>
-<form action="/ClientLogin" method="post">
+<form action="ClientLogin" method="post">
   <div class="imgcontainer">
     <img src="pics/login1.png" alt="Avatar" class="avatar" height="150px" >
   </div>
 
   <div class="container">
+  
+    <input type="hidden" name="command" value="Login"/>	
     <label for="uname"><b>Username</b></label>
     <input type="text" placeholder="Enter Username" name="uname" required>
 

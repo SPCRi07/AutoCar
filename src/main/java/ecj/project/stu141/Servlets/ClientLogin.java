@@ -3,6 +3,7 @@ package ecj.project.stu141.Servlets;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
@@ -32,23 +33,27 @@ public class ClientLogin extends HttpServlet {
 		
 		PrintWriter out = response.getWriter();
 		response.setContentType("text/plain");
+		String uname=request.getParameter("uname");
+		String Pass=request.getParameter("password");
 		
-		Connection myConn = null;
+		Connection Con = null;
 		Statement myStmt = null;
 		ResultSet myRs = null;
 		
 		try {
 			
 			
-			myConn = dataSource.getConnection();
+			Con = dataSource.getConnection();
 			
-			String sql = "select * from cars ";
-			myStmt = myConn.createStatement();
+			String sql="select * from client where Emailaddress=? and password=?";
+			PreparedStatement pst=Con.prepareStatement(sql);
+			pst.setString(1, uname);
+			pst.setString(2, Pass);
 			
-			myRs = myStmt.executeQuery(sql);
+			myRs = pst.executeQuery();
 			
 			while (myRs.next()) {
-				String email = myRs.getString("cartype");
+				String email = myRs.getString("Name");
 				out.println(email);
 			}
 		}

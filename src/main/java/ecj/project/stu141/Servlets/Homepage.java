@@ -12,7 +12,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
-import ecj.project.stu141.Utils.getcars;
+
+import ecj.project.stu141.Utils.*;
 import ecj.project.stu141.data.Carsdata;
 
 
@@ -21,7 +22,7 @@ import ecj.project.stu141.data.Carsdata;
 public class Homepage extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private getcars cl;
-	
+	private checklogin ck;
 	@Resource(name="jdbc")
 	private DataSource dataSource;
 	
@@ -33,6 +34,7 @@ public class Homepage extends HttpServlet {
 	try {
 		
 		cl=new getcars(dataSource);
+		ck=new checklogin(dataSource);
 		
 	}
 	catch(Exception e) {
@@ -45,9 +47,29 @@ public class Homepage extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 			
-		try {	
-		doGet(req, resp);
-		}
+		
+			try {
+				String command=req.getParameter("command");
+				
+				if(command == null) {
+					command="list";
+				}
+				
+				switch(command)
+				{
+				case "LIST":
+					getData(req,resp);	
+					break;
+				
+				case "Login":
+					checkLogin(req,resp);
+					
+				default:
+					getData(req,resp);	
+					
+				}
+			}
+		
 		catch(Exception e) {
 			throw new ServletException(e);
 		}	
@@ -56,24 +78,8 @@ public class Homepage extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
 		try {
-			String command=request.getParameter("command");
+			doPost(request, response);
 			
-			if(command == null) {
-				command="list";
-			}
-			switch(command)
-			{
-			case "LIST":
-				getData(request,response);	
-				break;
-			
-			case "Login":
-				checkLogin(request,response);
-				
-			default:
-				getData(request,response);	
-				
-			}
 			 
 			
 		
@@ -88,7 +94,21 @@ public class Homepage extends HttpServlet {
 	
 			String uname=request.getParameter("uname");
 			String Pass=request.getParameter("password");
-		
+			String name= ck.login(uname, Pass);
+			if(!name.isEmpty())
+			{
+				request.setAttribute("Name", name);
+				RequestDispatcher dispatcher=request.getRequestDispatcher("/homepage");
+				dispatcher.forward(request, response);
+			}
+			
+			else
+			{
+				request.setAttribute("Error", "Your Name is not Found");
+				RequestDispatcher dispatcher=request.getRequestDispatcher("/Login");
+				dispatcher.forward(request, response);
+			}
+	
 	}
 
 

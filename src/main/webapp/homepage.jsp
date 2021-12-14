@@ -1,4 +1,4 @@
-<%@ page import="java.util.* ,ecj.project.stu141.data.*" %>
+<%@ page import="java.util.* ,ecj.project.stu141.data.* ,ecj.project.stu141.Utils.*  , ecj.project.stu141.Servlets.*" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE html>
@@ -10,11 +10,16 @@
 
 </head>
 <% List<Carsdata> cars=(List<Carsdata>) request.getAttribute("CarList"); %>
+<% String name=(String) request.getAttribute("Name"); %>
 
 <body>
 
  <%@ include file="/header.jsp" %> 
  	<table> 
+ 	
+ 		<%= name
+ 		
+ 			%>
 	<% for(Carsdata data:cars) { %>
 	<tr >
 	<td> <img src="<%=data.getCarimage().toString() %>" class="pic" /></td>
