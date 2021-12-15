@@ -1,3 +1,9 @@
+/*** Institute : CMPICA*
+ *  Subject : CA843 ECJ* 
+ *  Submitted By : 21MCA141* 
+ *  Student Name : SOLANKI PARTH R*
+ *   Functionality: Passing the cars data to servlet via this class*/
+
 package ecj.project.stu141.Utils;
 
 import java.sql.Connection;

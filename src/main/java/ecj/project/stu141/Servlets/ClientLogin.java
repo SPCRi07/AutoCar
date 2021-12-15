@@ -1,3 +1,9 @@
+/*** Institute : CMPICA*
+ *  Subject : CA843 ECJ* 
+ *  Submitted By : 21MCA141* 
+ *  Student Name : SOLANKI PARTH R*
+ *   Functionality: Login Credentials Checking Servlet */
+
 package ecj.project.stu141.Servlets;
 
 import java.io.IOException;
@@ -13,6 +19,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 
 
@@ -52,9 +59,29 @@ public class ClientLogin extends HttpServlet {
 			
 			myRs = pst.executeQuery();
 			
+<<<<<<< Updated upstream
 			while (myRs.next()) {
 				String email = myRs.getString("Name");
 				out.println(email);
+=======
+			if (myRs.next()) {
+				
+				String Name = myRs.getString("Name");
+				String id=myRs.getString("ClientID");
+
+				 HttpSession session = request.getSession();
+				 session.setAttribute("Name", Name);
+				 session.setAttribute("ID", id);
+				 
+				Cookie ck=new Cookie("Name",Name);
+				Cookie ckid=new Cookie("ID",id);
+				request.setAttribute("Name", Name);
+				request.setAttribute("ID", id);
+				response.addCookie(ck);
+				response.addCookie(ckid);
+				RequestDispatcher dispatcher=request.getRequestDispatcher("./Homepage");
+				dispatcher.forward(request, response);
+>>>>>>> Stashed changes
 			}
 		}
 		catch (Exception exc) {

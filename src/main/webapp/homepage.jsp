@@ -10,12 +10,27 @@
 
 </head>
 <% List<Carsdata> cars=(List<Carsdata>) request.getAttribute("CarList"); %>
+<<<<<<< Updated upstream
 <% String name=(String) request.getAttribute("Name"); %>
+=======
+
+ <%! String cname;%>
+<%
+
+if (session != null) {
+	cname = (String) session.getAttribute("Name"); 
+} 
+else
+{
+	cname="User";}
+%>
+>>>>>>> Stashed changes
 
 <body>
 
  <%@ include file="/header.jsp" %> 
  	<table> 
+<<<<<<< Updated upstream
  	
  		<%= name
  		
@@ -26,6 +41,18 @@
 	<td> <%=data.getName().toString() %> </td>
 	<td> <%= data.getCartype().toString() %> </td>
 	</tr>
+=======
+ 			
+ 			<h2>  Hello,<%= cname %>     </h2>
+ 		
+ 		<% for(Carsdata data:cars) { %>
+	
+	<td><a href='Cars.jsp?cartype=<%= data.getCartype().toString() %>'> <img src="<%=data.getCarimage().toString() %>" class="pic" /> </a></td>
+	<td> <%=data.getName().toString() %> </td>
+	<td> <%= data.getCartype().toString() %> </td>
+		</tr>
+	
+>>>>>>> Stashed changes
 	<% } %> 
  	</table>       
  	     <%@ include file="/footer.jsp" %>

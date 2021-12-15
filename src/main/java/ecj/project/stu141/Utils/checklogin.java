@@ -1,3 +1,9 @@
+/*** Institute : CMPICA*
+ *  Subject : CA843 ECJ* 
+ *  Submitted By : 21MCA141* 
+ *  Student Name : SOLANKI PARTH R*
+ *   Functionality: Login Credentials Checking Servlet s*/
+
 package ecj.project.stu141.Utils;
 
 import java.sql.Connection;
