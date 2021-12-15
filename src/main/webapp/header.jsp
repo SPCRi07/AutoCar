@@ -12,8 +12,18 @@
   <a href="#default" class="logo">
   <img src="pics/logo.jpg"  alt="Logo"></a>
   <div class="header-right">
+  <% 
+
+Cookie kjk[]=request.getCookies(); 
+String namea=kjk[0].getValue();
+%>
+
     <a class="active" href="Homepage">Home</a>
+    
+    <%if(namea != null) { %>
     <a onclick="window.location.href='Login.jsp'">Login</a>
+    
+    <% } %>
     <a href="#contact">Contact</a>
     <a href="#about">About</a>
   </div>

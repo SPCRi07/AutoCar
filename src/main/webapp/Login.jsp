@@ -68,6 +68,10 @@ span.psw {
 </head>
 <body>
 
+
+<% String name=(String) request.getAttribute("Error"); %>
+
+ <%@ include file="/header.jsp" %> 
 <h2>Login Form</h2>
 <form action="ClientLogin" method="post">
   <div class="imgcontainer">
@@ -76,6 +80,7 @@ span.psw {
 
   <div class="container">
   
+  <h2> <% if(name != null){%> <%= name  %> <%} %></h2> 
     <input type="hidden" name="command" value="Login"/>	
     <label for="uname"><b>Username</b></label>
     <input type="text" placeholder="Enter Username" name="uname" required>
@@ -94,5 +99,6 @@ span.psw {
   </div>
 </form>
 
+ 	     <%@ include file="/footer.jsp" %>
 </body>
 </html>

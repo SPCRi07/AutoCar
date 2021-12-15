@@ -17,25 +17,23 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
-
-@WebServlet("/ClientLogin")
-public class ClientLogin extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-
+@WebServlet("/CarsServlets")
+public class CarsServlets extends HttpServlet {
 	
 	@Resource(name="jdbc")
-	private DataSource dataSource;
-
-    public ClientLogin() {
+	private DataSource dataSource;   
+   
+    public CarsServlets() {
         super();
         // TODO Auto-generated constructor stub
     }
+
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		
+	
 		PrintWriter out = response.getWriter();
 		response.setContentType("text/plain");
-		String uname=request.getParameter("uname");
+		String uname=request.getParameter("cartype");
 		String Pass=request.getParameter("password");
 		
 		Connection Con = null;
@@ -47,7 +45,7 @@ public class ClientLogin extends HttpServlet {
 			
 			Con = dataSource.getConnection();
 			
-			String sql="select * from client where Emailaddress=? and password=?";
+			String sql="select * from cartype";
 			PreparedStatement pst=Con.prepareStatement(sql);
 			pst.setString(1, uname);
 			pst.setString(2, Pass);
@@ -57,15 +55,10 @@ public class ClientLogin extends HttpServlet {
 			if (myRs.next()) {
 				
 				String Name = myRs.getString("Name");
-				String id=myRs.getString("ClientID");
 				Cookie ck=new Cookie("Name",Name);
-				Cookie ckid=new Cookie("ID",id);
 				request.setAttribute("Name", Name);
-				request.setAttribute("ID", id);
-				response.addCookie(ck);
-				response.addCookie(ckid);
 				RequestDispatcher dispatcher=request.getRequestDispatcher("/Cars.jsp");
-				
+				response.addCookie(ck);
 				dispatcher.forward(request, response);
 			}
 			else
@@ -79,9 +72,10 @@ public class ClientLogin extends HttpServlet {
 		catch (Exception exc) {
 			exc.printStackTrace();
 		}
-
+		
 	}
 
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}

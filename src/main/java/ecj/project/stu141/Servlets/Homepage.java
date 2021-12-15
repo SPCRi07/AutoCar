@@ -16,8 +16,6 @@ import javax.sql.DataSource;
 import ecj.project.stu141.Utils.*;
 import ecj.project.stu141.data.Carsdata;
 
-
-
 @WebServlet("/Homepage")
 public class Homepage extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -49,25 +47,12 @@ public class Homepage extends HttpServlet {
 			
 		
 			try {
-				String command=req.getParameter("command");
+			
 				
-				if(command == null) {
-					command="list";
-				}
-				
-				switch(command)
-				{
-				case "LIST":
-					getData(req,resp);	
-					break;
-				
-				case "Login":
-					checkLogin(req,resp);
-					
-				default:
+			
 					getData(req,resp);	
 					
-				}
+				
 			}
 		
 		catch(Exception e) {
@@ -79,11 +64,8 @@ public class Homepage extends HttpServlet {
 	
 		try {
 			doPost(request, response);
+	
 			
-			 
-			
-		
-		
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -98,14 +80,14 @@ public class Homepage extends HttpServlet {
 			if(!name.isEmpty())
 			{
 				request.setAttribute("Name", name);
-				RequestDispatcher dispatcher=request.getRequestDispatcher("/homepage");
+				RequestDispatcher dispatcher=request.getRequestDispatcher("/Cars.jsp");
 				dispatcher.forward(request, response);
 			}
-			
+	
 			else
 			{
 				request.setAttribute("Error", "Your Name is not Found");
-				RequestDispatcher dispatcher=request.getRequestDispatcher("/Login");
+				RequestDispatcher dispatcher=request.getRequestDispatcher("/Login.jsp");
 				dispatcher.forward(request, response);
 			}
 	

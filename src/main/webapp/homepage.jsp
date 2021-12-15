@@ -10,24 +10,33 @@
 
 </head>
 <% List<Carsdata> cars=(List<Carsdata>) request.getAttribute("CarList"); %>
-<% String name=(String) request.getAttribute("Name"); %>
+
+<% 
+
+Cookie ck[]=request.getCookies(); 
+if(ck.length!=0){
+String name=ck[0].getValue();
+%>
 
 <body>
 
  <%@ include file="/header.jsp" %> 
+ 
  	<table> 
- 	
- 		<%= name
- 		
- 			%>
-	<% for(Carsdata data:cars) { %>
-	<tr >
-	<td> <img src="<%=data.getCarimage().toString() %>" class="pic" /></td>
+ 			
+ 			<h2>  Hello,<%= name %>     </h2>
+ 			<% } %>
+ 		<% for(Carsdata data:cars) { %>
+	
+	<td><a href='Cars.jsp?cartype=<%= data.getCartype().toString() %>'> <img src="<%=data.getCarimage().toString() %>" class="pic" /> </a></td>
 	<td> <%=data.getName().toString() %> </td>
 	<td> <%= data.getCartype().toString() %> </td>
+	<input type="hidden" name="cartype" value="<%= data.getCartype().toString() %>"/>
 	</tr>
+	
 	<% } %> 
- 	</table>       
+ 	</table>  
+ 	<input type="submit"> 
  	     <%@ include file="/footer.jsp" %>
 </body>
 </html>
