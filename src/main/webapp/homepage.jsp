@@ -10,9 +10,6 @@
 
 </head>
 <% List<Carsdata> cars=(List<Carsdata>) request.getAttribute("CarList"); %>
-<<<<<<< Updated upstream
-<% String name=(String) request.getAttribute("Name"); %>
-=======
 
  <%! String cname;%>
 <%
@@ -24,24 +21,12 @@ else
 {
 	cname="User";}
 %>
->>>>>>> Stashed changes
 
 <body>
 
  <%@ include file="/header.jsp" %> 
+ 
  	<table> 
-<<<<<<< Updated upstream
- 	
- 		<%= name
- 		
- 			%>
-	<% for(Carsdata data:cars) { %>
-	<tr >
-	<td> <img src="<%=data.getCarimage().toString() %>" class="pic" /></td>
-	<td> <%=data.getName().toString() %> </td>
-	<td> <%= data.getCartype().toString() %> </td>
-	</tr>
-=======
  			
  			<h2>  Hello,<%= cname %>     </h2>
  		
@@ -52,9 +37,9 @@ else
 	<td> <%= data.getCartype().toString() %> </td>
 		</tr>
 	
->>>>>>> Stashed changes
 	<% } %> 
- 	</table>       
+ 	</table>  
+ 	<input type="submit"> 
  	     <%@ include file="/footer.jsp" %>
 </body>
 </html>
